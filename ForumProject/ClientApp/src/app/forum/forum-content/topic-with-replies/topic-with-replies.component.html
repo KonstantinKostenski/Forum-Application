@@ -1,0 +1,32 @@
+<div class="container">
+  <h1>
+    <app-forum-topic [topic]="topic"></app-forum-topic>
+  </h1>
+  <div *ngFor="let reply of replies?.items">
+    <app-forum-reply [reply]="reply" (deleteOutput)="deleteReply($event)"></app-forum-reply>
+  </div>
+  <div  class="btn card" (click)="replyToTopic()">
+    Reply
+  </div>
+  <div>
+    <button (click)="pagination.first()" [disabled]="pagination.isFirst">
+      <<
+    </button>
+    <button (click)="pagination.prev()" [disabled]="pagination.isFirst">
+      <
+    </button>
+
+    <input appPagination
+           #pagination="appPagination"
+           [totalPages]="replies?.totalPages"
+           (pageChange)="onPageChange($event)" />
+    <span> / {{ pagination.totalPages }}</span>
+
+    <button (click)="pagination.next()" [disabled]="pagination.isLast">
+      >
+    </button>
+    <button (click)="pagination.last()" [disabled]="pagination.isLast">
+      >>
+    </button>
+  </div>
+</div>

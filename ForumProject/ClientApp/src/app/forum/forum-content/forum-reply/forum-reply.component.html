@@ -1,0 +1,34 @@
+<div class="card" *ngIf="!editMode; else editModeTemplate">
+  <header class="card-header">{{reply?.message}}</header>
+  <div>Author: {{reply?.createdBy}}</div>
+  <div  [ngClass]="{'btn': true, 'disabled': !isCreatedByCurrentUser()}" (click)="editReply()">
+    Edit Reply
+  </div>
+  <div [ngClass]="{'btn': true, 'disabled': !isCreatedByCurrentUser()}" (click)="showDeleteModal(deleteListModalTemplate)">
+    Delete Reply
+  </div>
+</div>
+<hr />
+<ng-template #editModeTemplate>
+  <form #addTopic="ngForm" (ngSubmit)="onClickSubmit(addTopic.value)">
+    <input type="text" class="form-control" id="message"
+           required
+           [(ngModel)]="reply.message" name="message">
+    <input type="submit" value="Add">
+  </form>
+</ng-template>
+
+<ng-template #deleteListModalTemplate>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Delete Reply?</h4>
+  </div>
+  <div class="modal-body">
+    <p>Your reply will be permanently deleted. </p>
+  </div>
+  <div class="modal-footer clearfix">
+    <div class="float-end">
+      <button type="button" class="btn btn-default" (click)="deleteListModalRef.hide()">Cancel</button>
+      <button type="button" class="btn btn-danger" (click)="deleteReply()">Delete</button>
+    </div>
+  </div>
+</ng-template>

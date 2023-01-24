@@ -1,0 +1,9 @@
+<form #addTopic="ngForm" (ngSubmit)="onClickSubmit(addTopic.value)">
+  <div class="form-group">
+    <label for="message">Message</label>
+    <input type="text" class="form-control" id="message"
+           required
+           [(ngModel)]="reply.message" name="message">
+  </div>
+  <input type="submit" class="btn btn-primary" value="Add" >
+</form>

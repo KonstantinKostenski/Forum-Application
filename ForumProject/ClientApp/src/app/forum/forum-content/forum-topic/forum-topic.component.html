@@ -1,0 +1,36 @@
+<div class="card" *ngIf="!editMode; else editModeTemplate">
+  <header class="card-header"><a class="nav-link text-dark" [routerLink]="['forumTopicsWithReplies', topic?.id]">{{topic?.title}}</a></header>
+  <div>Author: {{topic?.createdBy}}</div>
+  <div [ngClass]="{'btn': true, 'disabled': !isCreatedByCurrentUser()}" (click)="editTopic()">
+    Edit Topic
+  </div>
+  <div [ngClass]="{'btn': true, 'disabled': !isCreatedByCurrentUser()}" (click)="showDeleteModal(deleteListModalTemplate)">
+    Delete Topic
+  </div>
+</div>
+<hr />
+<ng-template #editModeTemplate>
+  <form #addTopic="ngForm" (ngSubmit)="onClickSubmit(addTopic.value)">
+    <input type="text" class="form-control" id="title"
+           required
+           [(ngModel)]="topic.title" name="title">
+    <input type="text" class="form-control" id="description"
+           required
+           [(ngModel)]="topic.description" name="description">
+    <input type="submit" value="Edit">
+  </form>
+</ng-template>
+<ng-template #deleteListModalTemplate>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Delete Topic?</h4>
+  </div>
+  <div class="modal-body">
+    <p>Your topic will be permanently deleted. </p>
+  </div>
+  <div class="modal-footer clearfix">
+    <div class="float-end">
+      <button type="button" class="btn btn-default" (click)="deleteListModalRef.hide()">Cancel</button>
+      <button type="button" class="btn btn-danger" (click)="deleteTopic()">Delete</button>
+    </div>
+  </div>
+</ng-template>
